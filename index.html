@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4d0f1c">
+<title>Seguimiento de ciclo · REDMAÍZ (prototipo)</title>
+<link rel="icon" href="assets/img/iconSIMAIZ.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&amp;display=block">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="toolbar">
+  <button class="icon-btn" id="btnMenu" aria-label="Abrir o cerrar menú" aria-expanded="true" aria-controls="menu">
+    <svg viewBox="4.31 7.67 83.5 83.5" width="34" height="34" aria-hidden="true"><circle cx="46.06" cy="49.42" r="41.75" fill="#fff"/><rect x="29.55" y="40.32" width="20.84" height="2" fill="#691b32"/><rect x="29.55" y="50.77" width="16.19" height="2" fill="#691b32"/><rect x="29.55" y="61.04" width="20.84" height="2" fill="#691b32"/><polygon points="61.87 62.75 50.72 51.7 61.94 42.49 63.21 44.04 53.7 51.84 63.28 61.33 61.87 62.75" fill="#691b32"/></svg>
+  </button>
+  <div class="marca"><img src="assets/img/iconSIMAIZ.png" alt=""><span>REDMAÍZ</span></div>
+  <div class="espacio"></div>
+  <span class="conexion" id="conexion" role="status"></span>
+  <div class="usuario">
+    <span class="svg-icon" style="--i: url('assets/icons/menu-usuario.svg')" aria-hidden="true"></span>
+    <span>tecnico.ejemplo</span><span class="sep">|</span><strong>Técnico</strong><span class="sep">|</span><strong>Oaxaca</strong>
+  </div>
+  <button class="icon-btn solo-pc" aria-label="Notificaciones"><span class="ms" aria-hidden="true">notifications</span></button>
+  <button class="icon-btn" aria-label="Mi cuenta"><span class="ms" aria-hidden="true">account_circle</span></button>
+</header>
+
+<div class="marco" id="marco">
+  <nav class="menu" id="menu" aria-label="Menú principal">
+    <a href="#"><span class="svg-icon" style="--i: url('assets/icons/menu-inicio.svg')" aria-hidden="true"></span><strong>INICIO</strong></a>
+    <a href="#"><span class="svg-icon" style="--i: url('assets/icons/menu-datos-tecnico.svg')" aria-hidden="true"></span>Mis Datos Técnico</a>
+    <div class="linea"></div>
+    <div class="grupo"><span class="svg-icon" style="--i: url('assets/icons/menu-registro-comunidad.svg')" aria-hidden="true"></span>REGISTRO COMUNIDAD MILPERAS Y PROD</div>
+    <a href="#" class="sub"><span class="svg-icon" style="--i: url('assets/icons/menu-gestion-comunidad.svg')" aria-hidden="true"></span>Gestión de Comunidades</a>
+    <a href="#" class="sub"><span class="svg-icon" style="--i: url('assets/icons/menu-documental-rastreo.svg')" aria-hidden="true"></span>Rastreo Documental</a>
+    <a href="#" class="sub"><span class="svg-icon" style="--i: url('assets/icons/menu-formatos.svg')" aria-hidden="true"></span>Descarga tus formatos</a>
+    <div class="grupo"><span class="ms" aria-hidden="true">agriculture</span>SEGUIMIENTO DE CICLO</div>
+    <a href="#" class="sub activo" aria-current="page"><span class="ms" aria-hidden="true">checklist</span>Mi muestra</a>
+    <span class="version">Prototipo · datos de ejemplo</span>
+  </nav>
+  <div class="fondo-menu" id="fondoMenu"></div>
+
+  <main>
+    <div class="prototipo" role="note">
+      <span class="ms" aria-hidden="true">science</span>
+      <span>Prototipo para revisión. Los datos son inventados y solo se guardan en este navegador.</span>
+      <button class="btn btn-borde btn-chico" id="btnReiniciar" type="button">Reiniciar ejemplo</button>
+    </div>
+
+    <div class="banner">
+      <button class="icon-btn volver" type="button" aria-label="Volver a mi muestra"><span class="ms" aria-hidden="true">arrow_back</span></button>
+      <h1>María Hernández Ruiz</h1>
+      <span class="barra" aria-hidden="true">|</span>
+      <span class="detalle">Parcela "El Llano" · <span id="supParcela">1.5</span> ha · Temporal · Franco arcilloso · Comunidad Ejemplo Uno</span>
+      <span class="estado-envio" id="estadoEnvio"></span>
+    </div>
+
+    <div class="cuerpo">
+      <fieldset class="columna" id="formulario">
+        <legend class="oculto">Captura del seguimiento de ciclo</legend>
+
+        <section class="tarjeta" aria-labelledby="t1">
+          <h2 id="t1"><span class="paso">1</span>Siembra y suelo</h2>
+          <div class="campos">
+            <label class="campo">Mes de siembra<select id="siembraMes"></select></label>
+            <label class="campo">Semana<select id="siembraSemana"></select></label>
+            <label class="campo">Maíz sembrado<select id="maiz"></select></label>
+            <label class="campo">Semilla en la parcela (kg)<input id="semillaKg" inputmode="decimal" autocomplete="off"></label>
+          </div>
+          <div class="fila-pregunta">
+            <span id="lblSuelo">¿Se midió el suelo este ciclo? <small>(opcional)</small></span>
+            <div class="segmentado" role="group" aria-labelledby="lblSuelo">
+              <button type="button" data-suelo="si" aria-pressed="false">Sí</button>
+              <button type="button" data-suelo="no" aria-pressed="true">No</button>
+            </div>
+          </div>
+          <div class="campos" id="camposSuelo" hidden>
+            <label class="campo">Método<select id="sueloMetodo"><option>Medidor portátil</option><option>Laboratorio</option><option>Tira reactiva</option></select></label>
+            <label class="campo">pH<input id="sueloPh" inputmode="decimal" autocomplete="off"><span class="error" id="errPh"></span></label>
+            <label class="campo">CE (mS/cm)<input id="sueloCe" inputmode="decimal" autocomplete="off"></label>
+            <label class="campo">Materia orgánica (%)<input id="sueloMo" inputmode="decimal" autocomplete="off"><span class="error" id="errMo"></span></label>
+          </div>
+        </section>
+
+        <section class="tarjeta" aria-labelledby="t2">
+          <h2 id="t2"><span class="paso">2</span>Prácticas del ciclo <small>· costos de toda la parcela</small></h2>
+          <div class="resumen-practicas" id="resumenPracticas"></div>
+          <div class="tabla" role="table" aria-label="Prácticas del ciclo">
+            <div class="enc" role="row">
+              <span role="columnheader">Tipo</span><span role="columnheader">Práctica · insumo</span><span role="columnheader">Cuándo</span>
+              <span role="columnheader" class="num">Cantidad</span><span role="columnheader" class="num">Jornales</span><span role="columnheader" class="num">Insumo $</span><span role="columnheader" class="num">Total $</span><span role="columnheader"><span class="oculto">Acciones</span></span>
+            </div>
+            <div id="listaPracticas"></div>
+          </div>
+          <button class="btn btn-punteado" type="button" id="btnAgregar"><span class="ms" aria-hidden="true">add</span>Agregar práctica</button>
+          <p class="nota"><span class="ms" aria-hidden="true">payments</span>Total = gasto en insumo + jornales × <span id="valorJornal"></span> (valor fijo de Oaxaca, lo define Nivel Central).</p>
+        </section>
+
+        <section class="tarjeta" aria-labelledby="t3">
+          <h2 id="t3"><span class="paso">3</span>Cosecha y destino</h2>
+          <div class="campos">
+            <label class="campo">Mes de cosecha<select id="cosechaMes"></select></label>
+            <label class="campo">Semana<select id="cosechaSemana"></select></label>
+            <label class="campo">Grano cosechado (kg)<input id="cosechaKg" inputmode="decimal" autocomplete="off"></label>
+            <label class="campo">Ha cosechadas<input id="cosechaHa" inputmode="decimal" autocomplete="off"><span class="error" id="errHa"></span></label>
+            <label class="campo">Siniestro<select id="siniestro"></select></label>
+          </div>
+          <div class="destinos">
+            <div class="cabecera-destinos"><span>Destino de la producción</span><span id="chipDestino"></span></div>
+            <div class="barra-pct" id="barraDestino" role="img"></div>
+            <div id="listaDestinos" class="destinos"></div>
+            <button class="btn btn-punteado" type="button" id="btnDestino"><span class="ms" aria-hidden="true">add</span>Agregar destino</button>
+          </div>
+        </section>
+      </fieldset>
+
+      <aside class="tarjeta resultado" aria-labelledby="t4">
+        <h2 id="t4"><span class="paso">4</span>Resultado</h2>
+        <p class="nota">Se calcula mientras captura; no se edita aquí.</p>
+        <div class="cifras">
+          <div><span>Rendimiento</span><strong id="rRend">—</strong></div>
+          <div><span>Costo por ha</span><strong id="rCostoHa">—</strong></div>
+          <div><span>Costo por kg</span><strong id="rCostoKg">—</strong></div>
+          <div><span>Ingreso por venta</span><strong id="rIngreso">—</strong></div>
+        </div>
+        <div class="manejo">
+          <strong style="font-size: 13px;">Gasto por tipo de manejo</strong>
+          <div class="barra-pct" id="barraManejo" role="img"></div>
+          <div class="leyenda"><span style="color: var(--verde);" id="pBio"></span><span style="color: var(--aviso);" id="pQui"></span></div>
+        </div>
+        <ul class="checks" id="checks"></ul>
+        <div id="zonaEnvio"></div>
+        <p class="nota" id="guardado"></p>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div class="barra-movil" id="barraMovil">
+  <div class="datos"><span>Costo de producción</span><strong id="mCosto">—</strong></div>
+  <button class="btn btn-verde" type="button" data-enviar><span class="ms" aria-hidden="true">send</span>Enviar</button>
+</div>
+
+<dialog id="dlgPractica" aria-labelledby="dlgTitulo">
+  <form method="dialog" class="dlg" id="formPractica">
+    <div class="dlg-enc">
+      <h3 id="dlgTitulo"><span class="ms" aria-hidden="true">add_task</span><span id="dlgTexto">Agregar práctica</span></h3>
+      <button class="cerrar" type="button" id="btnCerrarDlg" aria-label="Cerrar"><span class="ms" aria-hidden="true">close</span></button>
+    </div>
+    <div class="dlg-cuerpo">
+      <div class="campo"><span id="lblEtapa">Etapa</span><div class="chips-etapa" id="chipsEtapa" role="group" aria-labelledby="lblEtapa"></div></div>
+      <label class="campo">Práctica<select id="pPractica" required></select></label>
+      <label class="campo">Insumo<select id="pInsumo"></select><span class="tipo-insumo" id="pTipoTxt"></span></label>
+      <div class="campos" id="campoOtro" hidden>
+        <label class="campo">Nombre del insumo<input id="pOtroNombre" autocomplete="off"></label>
+        <label class="campo">Tipo<select id="pOtroTipo"><option value="BIO">Biológico</option><option value="QUI">Químico</option></select></label>
+      </div>
+      <div class="campos">
+        <label class="campo" id="campoCantidad">Cantidad (toda la parcela)<input id="pCantidad" inputmode="decimal" autocomplete="off"></label>
+        <label class="campo" id="campoUnidad">Unidad<select id="pUnidad"></select></label>
+        <label class="campo">Mes<select id="pMes"></select></label>
+        <label class="campo">Semana<select id="pSemana"></select></label>
+      </div>
+      <div class="caja-costo">
+        <strong>Costo para toda la parcela</strong>
+        <div class="campos">
+          <label class="campo">Gasto en insumo ($)<input id="pGasto" inputmode="decimal" autocomplete="off"></label>
+          <label class="campo">Jornales<input id="pJornales" inputmode="decimal" autocomplete="off"></label>
+        </div>
+        <span class="nota" id="pJornalTxt"></span>
+        <div class="total-linea"><span>Total de la práctica</span><strong id="pTotal">$0</strong></div>
+      </div>
+      <span class="error" id="pError" role="alert" style="color: var(--error); font-weight: 600;"></span>
+    </div>
+    <div class="dlg-pie">
+      <button class="btn btn-borde" type="button" id="btnGuardarOtra">Guardar y otra</button>
+      <button class="btn btn-primario" type="button" id="btnGuardarPractica">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgEnviar" aria-labelledby="envTitulo">
+  <div class="dlg">
+    <div class="dlg-enc"><h3 id="envTitulo"><span class="ms" aria-hidden="true">send</span>Enviar seguimiento</h3></div>
+    <div class="dlg-cuerpo"><p style="margin: 0;">Al enviar, el seguimiento se cierra y ya no se puede editar. Para corregirlo después, Nivel Central tiene que abrir una apertura.</p></div>
+    <div class="dlg-pie">
+      <button class="btn btn-borde" type="button" id="btnCancelarEnvio">Seguir revisando</button>
+      <button class="btn btn-verde" type="button" id="btnConfirmarEnvio">Enviar</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
